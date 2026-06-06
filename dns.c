@@ -15,14 +15,14 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    struct addrinfo *presult; 
-    const char *node = argv[1];
-    const char *service = "http";
-    struct addrinfo hints;
-    char  ipstr[INET6_ADDRSTRLEN];
-    char *prot;
+    struct addrinfo *presult;                               // variable that stores the IPs return by getaddrinfo()
+    const char *node = argv[1];                             // host name passed
+    const char *service = "https";                          // service used by getaddrinfo, it sets the port, e.g. You can use "http" to get TCP or set it equal to 0 to e get every port used by the IP address
+    struct addrinfo hints;                                  // struct that helps getaddrinfo to filter the results
+    char  ipstr[INET6_ADDRSTRLEN];                          // string that contains the IP address converted to string
+    char *prot;                                             // string used to store the protocol used by the IP address
 
-    memset(&hints, 0, sizeof(struct addrinfo));
+    memset(&hints, 0, sizeof(struct addrinfo));             // clearing the memory for hints
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = 0;
     hints.ai_flags = AI_PASSIVE;
@@ -35,10 +35,11 @@ int main(int argc, char *argv[]) {
     int result = getaddrinfo(node, service, &hints, &presult);
     printf("IP address for %s\n", node);
 
-    //Printing the results
+    // Looping and printing the results
     for (struct addrinfo *rp = presult; rp != NULL; rp = rp->ai_next) {
         void *addr;
 
+        // converting the IP return to compitible type for inet_ntop()
         if (rp->ai_family == AF_INET) {
             struct sockaddr_in *ipv4 = (struct sockaddr_in *)rp->ai_addr;
             addr = &(ipv4->sin_addr);
@@ -57,7 +58,7 @@ int main(int argc, char *argv[]) {
         case IPPROTO_TCP: prot = "TCP";
             break;
         case IPPROTO_UDP: prot = "UDP";
-        
+            break;
         default: prot = "Unknown";
             break;
         }
