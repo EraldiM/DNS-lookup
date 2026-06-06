@@ -9,13 +9,13 @@ e.g
 
 ./dns google.com
 
-IP address for google.com
-Family: IPv4
-Address: 142.251.27.100
-Protocol used: TCP
------------------------------------------------------
-Family: IPv4
-Address: 142.251.27.100
-Protocol used: UDP
------------------------------------------------------
+IP address for google.com     
+Family: IPv4        
+Address: 142.251.27.100       
+Protocol used: TCP              
+\-----------------------------------------------------                             
+Family: IPv4              
+Address: 142.251.27.100             
+Protocol used: UDP                 
+\-----------------------------------------------------                  
 
