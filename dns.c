@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
     const char *service = "http";
     struct addrinfo hints;
     char  ipstr[INET6_ADDRSTRLEN];
+    char *prot;
 
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_family = AF_UNSPEC;
@@ -49,6 +50,19 @@ int main(int argc, char *argv[]) {
         printf("Family: %s\n", rp->ai_family == AF_INET ? "IPv4" : "IPv6");
         const char *ip_addr = inet_ntop(rp->ai_family, addr, ipstr, sizeof(ipstr));
         printf("Address: %s\n", ip_addr);
+        switch (rp->ai_protocol)
+        {
+        case IPPROTO_IP: prot = "IP";
+            break;
+        case IPPROTO_TCP: prot = "TCP";
+            break;
+        case IPPROTO_UDP: prot = "UDP";
+        
+        default: prot = "Unknown";
+            break;
+        }
+        printf("Protocol used: %s\n", prot);
+        printf("-----------------------------------------------------\n");
 
     }
 
